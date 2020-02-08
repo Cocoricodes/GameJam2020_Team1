@@ -2,7 +2,8 @@ ArrayList<Temperature> TemperatureEnemie = new ArrayList<Temperature>();
 ArrayList<Oxygene> OxygeneEnemie = new ArrayList<Oxygene>();
 void setup() 
 {
-  //Code setup
+  TemperatureEnemie.add(new Temperature(int(random(0,1000)), int(random(0,20)), int(random(1,3)), 1, a, a, 1, "Images\\mechant chaleur.png"));
+  OxygeneEnemie.add(new Oxygene(int(random(0,1000)), int(random(0,20)), int(random(1,3)), 1, a, a, 1, "Images\\O2 (1).png"));
 }
 
 void draw() 
