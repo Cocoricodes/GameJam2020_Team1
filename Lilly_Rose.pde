@@ -6,6 +6,8 @@ PImage etoile3;
 PImage Win;
 PImage recharge;
 PImage bouton;
+PImage argent;
+PImage logo;
 
 void setup () {
   size (800, 600);
@@ -17,6 +19,8 @@ void setup () {
   Win = loadImage("Win game.png");
   recharge=loadImage("coucheneuve.jpg");
   bouton =loadImage("bouton+.PNG");
+  logo=loadImage("https://github.com/Cocoricodes/GameJam2020_Team1/blob/master/Images/LOGO%20game.png?raw=true","png");
+  argent=loadImage("https://github.com/Cocoricodes/GameJam2020_Team1/blob/master/Images/dollar.png?raw=true","png");
 }
 void draw() {
  background(100);
@@ -27,8 +31,7 @@ void draw() {
 void test (){
  image(play, 200, 200, 200, 200);
  fill (#FFFFFF);
- textSize (50);
- text ("Space Oxyders",300, 100);
+ image (logo,400,300,100,100);
  fill (#FFFFFF);
  textSize (26);
  text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
@@ -70,11 +73,14 @@ void ecranFinDeNiveau (){
  //  table[i].getInt("etoile");
  // }
  background();
- image(etoile3, 200, 200, 200, 200);
- image(Win, 300, 100, 100, 100);
- image(play,800, 600, 200, 200);
- text(dollars);
- image(recharge,500,400,200, 100);
+ image(etoile3, 300, -50, 300, 300);
+ image(Win, 200, 10, 400, 400);
+ image(play,700, 500, 100, 100);
+ textSize(100);
+ text(dollars,450,400);
+ image(recharge,50,280,200, 100);
+ image(bouton,270,480,100,100);
+ image(argent,350,325,100,100);
  }
 
   
