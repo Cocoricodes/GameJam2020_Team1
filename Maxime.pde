@@ -1,17 +1,24 @@
-void enemiUpdate(){
-  y  += v;
-  int y;
-  int x;
-  enemi = loadImage("emplacement.png");
-  image(enemi,x,y,/*taille*/,/*taille*/);
+float t1;
+
+void setup() {
+t1 = millis();
+
+
 }
-  boolean barreToucher(){
-    boolean barreToucher == false;
-    if(y>/* la barre */){
-      barreToucher == true ;
-    }
-    if(barreToucher == true){
-      x = /*en haut*/;
-      y = /*en haut*/;
-    }
-  }    
+  
+  
+  size = 800 600
+  void draw(){
+if(millis() >t1 + 10000 && int(random(1,2))== 2){if(int(random(1,2))== 2){TemperatureEnemie.add(new Temperature(int(random(0,1000)), int(random(0,20)), int(random(1,3)), 1, a, a, 1, "Images\\mechant chaleur.png"));}
+else {
+  TemperatureEnemie.add(new Temperature(int(random(0,1000)), int(random(0,20)), int(random(1,3)), 1, a, a, 1, "Images\\mechant chaleur.png"));
+ 
+ }
+}
+    
+  
+
+
+
+
+
