@@ -1,7 +1,7 @@
 Barriere b;
 
 void setup() {
-  size(600,600);
+  size(1000,800);
   b = new Barriere(height/2+50, 100, 50, color(100)) ;
 }
 
