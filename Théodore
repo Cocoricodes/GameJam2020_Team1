@@ -1,4 +1,5 @@
-/*
+ArrayList<Temperature> TemperatureEnemie = new ArrayList<Temperature>();
+ArrayList<Oxygene> OxygeneEnemie = new ArrayList<Oxygene>();
 void setup() 
 {
   //Code setup
@@ -6,10 +7,11 @@ void setup()
 
 void draw() 
 {
-  //code draw
+  for (
   
 }
-*/
+
+
 class Enemie
 {
   float x, y, v, va, c1, c2, vie;
@@ -25,6 +27,25 @@ class Enemie
     vie=evie;
     skin=loadImage(photo);
   }
+  
+void enemiUpdate(){
+  y  += v;
+  image(skin, x, y, c1, c2);
+}
+
+  boolean barreToucher(){
+    enemiUpdate();
+    boolean InbarreToucher = false;
+    if(y>=(height/2+50)){
+      InbarreToucher = true ;
+    }
+    if(InbarreToucher == true){
+      x = int(random(0,1000));/*en haut*/
+      y = 0;/*en haut*/
+    }
+    
+    return InbarreToucher;
+  }
 }
 class Temperature extends Enemie
 {
@@ -34,7 +55,7 @@ class Temperature extends Enemie
      super( ex, ey, ev, eva, ec1, ec2, evie, photo );
      
   }
-  void update(){print("x");}
+  
 }
 class Oxygene extends Enemie
 {
@@ -44,5 +65,5 @@ class Oxygene extends Enemie
      super( ex, ey, ev, eva, ec1, ec2, evie, photo );
      
   }
-  void update(){print("x");}
+  
 }
