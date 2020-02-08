@@ -6,12 +6,12 @@ void enemiUpdate(){
   image(enemi,x,y,/*taille*/,/*taille*/);
 }
   boolean barreToucher(){
-    boolean barreToucher == false
+    boolean barreToucher == false;
     if(y>/* la barre */){
       barreToucher == true ;
     }
     if(barreToucher == true){
-      x = /*en haut*/
-      y = /*en haut*/
+      x = /*en haut*/;
+      y = /*en haut*/;
     }
   }    
