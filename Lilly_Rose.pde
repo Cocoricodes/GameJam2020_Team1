@@ -5,6 +5,7 @@ PImage level;
 PImage etoile3;
 PImage Win;
 PImage recharge;
+PImage bouton;
 
 void setup () {
   size (800, 600);
@@ -15,6 +16,7 @@ void setup () {
   etoile3 = loadImage("3 étoile.png");
   Win = loadImage("Win game.png");
   recharge=loadImage("coucheneuve.jpg");
+  bouton =loadImage("bouton+.PNG");
 }
 void draw() {
  background(100);
@@ -67,6 +69,7 @@ void ecranFinDeNiveau (){
  //   table[i].getInt("level");
  //  table[i].getInt("etoile");
  // }
+ background();
  image(etoile3, 200, 200, 200, 200);
  image(Win, 300, 100, 100, 100);
  image(play,800, 600, 200, 200);
