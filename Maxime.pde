@@ -44,3 +44,28 @@ size(500,500);
 
 
 
+
+int tempsDeJeu=millis();
+void setup() {
+  size(1000, 500);
+}
+
+
+
+void draw() {
+  background(25);
+  textSize(35);
+  text(millis()/1000, 10, 50);
+  fill(#708090);
+  textSize(35);
+  //text(oxyMax+tempMax,10,50);
+  if (millis()>=2000 && millis() <=9000) {
+    textSize(35);
+    text("Pour deplacer la barre utiliser la souris!", 10, 90);
+    text("Pour survivre il faut repartir les degats sur la barre", 10, 130);
+    text("Gagne de l'argent en tuant les ennemis", 10, 170);
+    fill(#708090);
+  }
+}
+
+
