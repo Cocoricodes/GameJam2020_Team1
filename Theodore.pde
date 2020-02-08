@@ -101,6 +101,7 @@ class Enemie
     if (InbarreToucher == true) {
       x = int(random(0, 1000));/*en haut*/
       y = int(random(0, 20));/*en haut*/
+      posennemi(x, type);
       if (type==1)
       {
         tempMax--;
