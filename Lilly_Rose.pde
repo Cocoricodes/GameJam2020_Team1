@@ -44,7 +44,7 @@ void next() {
     text("GAME OVER", 400, 300);
    }else{
      textSize (100);
-     text ("
+     text (")
      
      }
 }
