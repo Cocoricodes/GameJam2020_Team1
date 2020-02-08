@@ -55,7 +55,7 @@ void setup() {
 void draw() {
   background(25);
   textSize(35);
-  text(millis()/1000, 10, 50);
+  text(millis()/1000, 10, 130);
   fill(#708090);
   textSize(35);
   //text(oxyMax+tempMax,10,50);
