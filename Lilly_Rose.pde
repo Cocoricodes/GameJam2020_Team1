@@ -4,6 +4,7 @@ PImage level;
 //PImage etoile2;
 PImage etoile3;
 PImage Win;
+PImage recharge;
 
 void setup () {
   size (800, 600);
@@ -13,6 +14,7 @@ void setup () {
  // etoile2 =loadImage("2 étoile.png");
   etoile3 = loadImage("3 étoile.png");
   Win = loadImage("Win game.png");
+  recharge=loadImage("coucheneuve.jpg");
 }
 void draw() {
  background(100);
@@ -69,8 +71,8 @@ void ecranFinDeNiveau (){
  image(Win, 300, 100, 100, 100);
  image(play,800, 600, 200, 200);
  text(dollars);
- 
-}
+ image(recharge,500,400,200, 100);
+ }
 
   
   
