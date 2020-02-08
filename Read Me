@@ -1,3 +1,34 @@
-Mathias = Touches
-Aubin;Arthaud = Design et images
-Maxime ; Theodore = Ennemis
+Theodore : 
+//enemis et dificulté des niveaux (paramétrage niveau)
+-tableau des levels
+-contrôle des ennemis (spawn / despawn~ / accès info ennemis!!)
+-Contrôle du niveau (fin de niveau sous condtion ennemis)
+-son colision
+
+-- gestion colision -> gain ressource 
+
+Maxime : 
+//enemis et chrono et affichage enemis restants
+-chrono 
+-compteur ennemis
+-affichage ennemis
+-despawn 
+
+
+antonin :
+//gestion de la barre de vie de la barre.
+-fonction perte de vie et refresh de la barre
+
+Lilly-Rose : 
+//interface
+interfaces : 
+	départ
+	inter niveau	
+	game over
+intreface extérieures dans le code.
+
+Maxime
+//barre
+- défilement
+
+
