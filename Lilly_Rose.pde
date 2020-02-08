@@ -28,7 +28,7 @@ void test (){
  image(play, 200, 200, 200, 200);
  fill (#FFFFFF);
  textSize (50);
- text ("titre du jeu",300, 100);
+ text ("Space Oxyders",300, 100);
  fill (#FFFFFF);
  textSize (26);
  text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
