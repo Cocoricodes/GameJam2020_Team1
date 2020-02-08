@@ -1,15 +1,27 @@
 int paddle ;
 int Life ;
+int x=10; 
+int y=50 ; 
+int w=20;
+int h=150 ;
 
 
 
 void draw(){
-  rect (0,550,2000,40);
+  
   fill(#8B7D7D);
-    rect (10,50,20,150);
+    rect (x,y,w,h);
 
 }
-
+  void barreToucher(){
+    boolean barreToucher = false;
+    if(y<550){
+      barreToucher = true ;
+    }
+    if(barreToucher ){
+     rect (x,y,w-4,h);
+    }
+  }    
 
 
 void setup() {
