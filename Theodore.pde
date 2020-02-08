@@ -7,10 +7,25 @@ void setup()
 
 void draw() 
 {
-  for (
   
+  for (int i = 0; i < TemperatureEnemie.size(); i++) {
+    if (TemperatureEnemie.get(i).barreToucher())
+    {
+      //degat barre temp
+      int a = int(random(15,25));
+      if (int(random(1,4))==3) {TemperatureEnemie.add(new Temperature(int(random(0,1000)), int(random(0,20)), int(random(1,3)), 1, a, a, 1, "Images\\mechant chaleur.png"));}
+    }
+  }
+  for (int i = 0; i < OxygeneEnemie.size(); i++) {
+    if (OxygeneEnemie.get(i).barreToucher())
+    {
+      //degat barre temp
+      int a = int(random(15,25));
+      if (int(random(1,4))==3) {OxygeneEnemie.add(new Oxygene(int(random(0,1000)), int(random(0,20)), int(random(1,3)), 1, a, a, 1, "Images\\O2 (1).png"));}
+    }
+  }
 }
-
+  
 
 class Enemie
 {
@@ -41,7 +56,7 @@ void enemiUpdate(){
     }
     if(InbarreToucher == true){
       x = int(random(0,1000));/*en haut*/
-      y = 0;/*en haut*/
+      y = int(random(0,20));/*en haut*/
     }
     
     return InbarreToucher;
