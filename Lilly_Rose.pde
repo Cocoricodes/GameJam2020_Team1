@@ -1,12 +1,20 @@
 PImage play;
 PImage level;
+//PImage etoile1;
+//PImage etoile2;
+PImage etoile3;
+PImage Win;
 
 void setup () {
   size (800, 600);
   play = loadImage("boutonplay.PNG");
   level= loadImage("backgound(1).JPG");
+ // etoile1= loadImage("_ 1étoile.jpg");
+ // etoile2 =loadImage("2 étoile.png");
+  etoile3 = loadImage("3 étoile.png");
+  Win = loadImage("Win game.png");
 }
-void draw () {
+void draw() {
  background(100);
  test();
 }
@@ -38,18 +46,31 @@ boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2
 
 
 void next() {
-  if (vie ==0) {
+  if (vie <1) {
     background (0);
-    textSize(100)
+    textSize(100);
     text("GAME OVER", 400, 300);
    }else{
-     textSize (100);
-     text (")
-     
-     }
+     if (t1 >1 && vie >0){
+      
+   }
+ }
 }
   
-
+  
+  
+void ecranFinDeNiveau (){
+ //for (int i= 0; i<10; i++)
+ // {
+ //   table[i].getInt("level");
+ //  table[i].getInt("etoile");
+ // }
+ image(etoile3, 200, 200, 200, 200);
+ image(Win, 300, 100, 100, 100);
+ image(play,800, 600, 200, 200);
+ text(dollars);
+ 
+}
 
   
   
