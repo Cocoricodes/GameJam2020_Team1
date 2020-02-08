@@ -6,8 +6,11 @@ int level = 1;
 float t1;
 int dollars = 0;
 Table table = new Table();
+import processing.sound.*;
+SoundFile collisionSound = new SoundFile(this, "son\\collision.mp3");
 void setup() 
 {
+  
   t1 = millis();
   int a = 20;
   TemperatureEnemie.add(new Temperature(int(random(0, 1000)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images\\mechant chaleur.png"));
@@ -17,7 +20,7 @@ void setup()
   table.addColumn("oxygene");
   table.addColumn("temperature");
   table.addColumn("etoile");
-    for (int i= 0; i<10; i++)
+  for (int i= 0; i<10; i++)
   {
     TableRow newRow = table.addRow();
     newRow.setInt("level", i+1);
@@ -70,6 +73,8 @@ class Enemie
 {
   float x, y, v, va, c1, c2, vie, type;
   PImage skin; 
+  float posX() {return x;}
+  float posY() {return y;}
   Enemie(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
   {
     x=ex;
@@ -127,3 +132,5 @@ class Oxygene extends Enemie
     type = 2;
   }
 }
+
+void stop() {}
