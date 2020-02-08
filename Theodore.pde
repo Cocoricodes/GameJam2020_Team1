@@ -56,6 +56,7 @@ void draw()
     }
   }
   if (millis() >t1 + 10000 && int(random(1, 2))== 2) {
+    int a = int(random(15, 25));
     if (int(random(1, 2))== 2)
     {
       if (tempMax>0) {
