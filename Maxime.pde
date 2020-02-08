@@ -21,7 +21,25 @@ else {
 }
     
   
+//code chronometre
+ 
+ int tempsDeJeu=millis();
+void setup(){
+size(500,500);
 
+}
+  
+  
+
+  void draw(){
+  background(25);
+  textSize(35);
+  text(millis()/1000,10,50);
+  fill(#708090);
+  textSize(35);
+  text(oxyMax+tempMax,10,50);
+  
+ }
 
 
 
