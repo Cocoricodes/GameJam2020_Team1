@@ -3,12 +3,12 @@ import processing.sound.*;
 SoundFile musicDeFond;
 SoundFile sonPerdu;
 SoundFile sonGagne;
-SoundFile sonCollisionChaleur
-SoundFile sonCollisionO2
-SoundFile sonPaddleMove
-//SoundFile sonLancementNiv
-SoundFile sonCliqueButton
-SoundFile sonDollars
+SoundFile sonCollisionChaleur;
+SoundFile sonCollisionO2;
+SoundFile sonPaddleMove;
+SoundFile sonLancementNiv;
+SoundFile sonCliqueButton;
+SoundFile sonDollars;
 
 void setup() {
       musicDeFond = new SoundFile(this, "Son/mediumjammers.mp3");
@@ -18,6 +18,6 @@ void setup() {
       sonCliqueButton = new SoundFile(this, "Son/clic.mp3");
       sonPaddleMove = new SoundFile(this, "Son/woosh_3_slider.mp3");
       sonCollisionO2 = new SoundFile(this, "Son/goutteO2.mp3");
-      //sonLancementNiv = new SoundFile(this, "Son/.mp3");
+      sonLancementNiv = new SoundFile(this, "Son/lancement_niveau.mp3");
       sonDollars = new SoundFile(this, "Son/money_Shine.mp3");
 }
