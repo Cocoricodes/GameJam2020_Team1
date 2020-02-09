@@ -87,6 +87,24 @@ void Antonin() {
   }
 }
 
+  void barreToucher(ArrayList<Bloc> blocs) {
+    if (y>=(height/2+50)) { 
+      float xEnemi;
+      bloc blocTouche = new bloc();
+      bloc hitbox = new bloc();
+      for(int i =0; i< blocs.size(); i++){
+      hitbox = blocs.get(i);
+      //blocs.forEach(hitbox) {
+        xEnemi = x + c1/2;
+        //si xmillieu est dans la hitbox
+        if ( (xEnemi > blocX) && (xEnemi < (blocX + blocWidth))) {
+          //on a colision avec le bloc Element.
+          blocTouche = Element;  
+    
+
+
+
+
 void Lilly() {
   test();
 }
