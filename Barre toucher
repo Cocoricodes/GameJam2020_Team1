@@ -1,0 +1,53 @@
+  void barreToucher(ArrayList<Bloc> blocs) {
+    if (y>=(height/2+50)) { 
+      float xEnemi;
+      bloc blocTouche = new bloc();
+      bloc hitbox = new bloc();
+      for(int i =0; i< blocs.size(); i++){
+      hitbox = blocs.get(i);
+      //blocs.forEach(hitbox) {
+        xEnemi = x + c1/2;
+        //si xmillieu est dans la hitbox
+        if ( (xEnemi > blocX) && (xEnemi < (blocX + blocWidth))) {
+          //on a colision avec le bloc Element.
+          blocTouche = Element;  
+    
+          x = int(random(0, 1000));/*en haut*/
+          y = int(random(0, 20));/*en haut*/
+          //on récupère le millieu de l'ennemi
+
+          //déterminer le bloc en collision : 
+          /*
+      Pour chaque bloc de l'array list, on test la collision.
+           */
+
+          if (type == 1) {
+            if (blocVie == 4 ) {
+              dollars = dollars+1;
+            }
+            if (barreToucheOxy == abime1);
+            {
+              dollars=dollars+0.80;
+            }
+            if (barreToucheOxy == abime2);
+            {
+              dollars=dollars+0.60;
+            }
+            if (barreToucheOxy == bcpabime1);
+            {
+              dollars=dollars+0.40;
+            }
+            if (barreToucheOxy == bcpabime2);
+            {
+              dollars=dollars+0.20;
+            }
+            image (abime1, 150, 50);
+            vie =vie-1;
+          }
+          if(1 == type)
+          {
+            tempMax--;
+          } else {
+            oxyMax--;
+          }
+        }
