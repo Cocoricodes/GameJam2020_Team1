@@ -1,9 +1,31 @@
 boolean fight = false;
 boolean debut = true;
 boolean finNivOk = false;
+int vie=5;
+int x=10; 
+int y=50 ; 
+int w=20;
+int h=150 ;
+int wblocimage = 100;
+int hblocimage = 15;
+PImage img100;
+PImage img80;
+PImage img60;
+PImage img40;
+PImage img20;
+PImage img0;
 
+
+PImage[] blocImages = new PImage[6];
+PImage aluminium;
+
+
+
+PImage barredestroy;
 void setup() {
-
+  //Arthaud
+  //son();
+  //musicDeFond.loop();
   //Lilly-Rose
   size (800, 600);
   play = loadImage("Images/boutonplay.PNG");
@@ -17,24 +39,27 @@ void setup() {
   logo=loadImage("Images/LOGO game.png");
   argent=loadImage("Images/dollar.png");
   //Mathias
-  ba = new Barre(2 , width/2+75);
+  ba = new Barre(4 , height/2+100);
+  for(int i=1; i<6; i++ ){
+    blocImages[i] = loadImage("Images/bloc-"+i+".png");
+    blocImages[i].resize(150,50);
+  }
+  aluminium = loadImage("Images/allu.jpg");
+
   //Antonin
-  img100=loadImage ("Images/barpv100.png");
+  img100= loadImage ("Images/barpv100.png");
   img80 = loadImage("Images/barpv80.png");
   img60 = loadImage("Images/barpv60.png");
   img40 = loadImage("Images/barpv40.png");
   img20 = loadImage("Images/barpv20.png");
   img0 = loadImage("Images/barpv0.png");
-  abime1 = loadImage("abime1.jpg");
-  abime2 = loadImage ("abime2.jpg");
-  bcpabime1= loadImage("bcpabime1.jpg");
-  bcpabime2= loadImage("bcpabime2.jpg");
+
   //Maxime
   t1 = millis();
   //Theo
   int a = 20;
-  TemperatureEnemie.add(new Temperature(int(random(0, 1000)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
-  OxygeneEnemie.add(new Oxygene(int(random(0, 1000)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
+  TemperatureEnemie.add(new Temperature(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
+  OxygeneEnemie.add(new Oxygene(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
 
   table.addColumn("level");
   table.addColumn("oxygene");
@@ -53,19 +78,19 @@ void setup() {
 }
 
 void draw() {
-  if (debut){
+  //musicDeFond.play();
+  if (debut) {
     Lilly();
   }
- if (fight){
-   image(levelimg,0,0,800,600);
-   Mathias();
-   Maxime();
-   Antonin();
-   Theo();
- }
- if (finNivOk){
-   
- }
+  if (fight) {
+    image(levelimg, 0, 0, 800, 600);
+    Mathias();
+    Maxime();
+    //Antonin();
+    Theo();
+  }
+  if (finNivOk) {
+  }
 }
 
 void Antonin() {
@@ -87,30 +112,14 @@ void Antonin() {
   }
 }
 
-  void barreToucher(ArrayList<Bloc> blocs) {
-    if (y>=(height/2+50)) { 
-      float xEnemi;
-      bloc blocTouche = new bloc();
-      bloc hitbox = new bloc();
-      for(int i =0; i< blocs.size(); i++){
-      hitbox = blocs.get(i);
-      //blocs.forEach(hitbox) {
-        xEnemi = x + c1/2;
-        //si xmillieu est dans la hitbox
-        if ( (xEnemi > blocX) && (xEnemi < (blocX + blocWidth))) {
-          //on a colision avec le bloc Element.
-          blocTouche = Element;  
-    
-
-
-
-
 void Lilly() {
-  test();
+  lancement();
 }
 
 void Mathias() {
   ba.barreInitOrShow();
+  aluminium.resize(width, height);
+  image(aluminium, 0, height/2+150);
 }
 
 //void Arthaud(){
@@ -124,51 +133,54 @@ void Mathias() {
 //  etoiles = 1}   
 //}
 void Theo() {
-  for (int i = 0; i < OxygeneEnemie.size(); i++) {
-    OxygeneEnemie.get(i).enemiUpdate();
+  if (tempMax<=0) { 
+    TemperatureEnemie = new ArrayList<Temperature>();
   }
+  if (oxyMax<=0) { 
+    OxygeneEnemie = new ArrayList<Oxygene>();
+  }
+  //background(25);
+  //text("T:"+TemperatureEnemie.size()+" total:"+tempMax+" O:"+ OxygeneEnemie.size()+" total:"+oxyMax + " a:"+a, 400, 300);
   for (int i = 0; i < TemperatureEnemie.size(); i++) {
+    //println("X:"+TemperatureEnemie.get(i).posX()+" Y:"+TemperatureEnemie.get(i).posY());
     TemperatureEnemie.get(i).enemiUpdate();
+    if (TemperatureEnemie.get(i).barreToucher())
+    {
+      //println("z");
+      //degat barre temp
+      a = int(random(15, 25));
+      if (int(random(1, 4))==3 && tempMax>0) {
+        TemperatureEnemie.add(new Temperature(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
+      }
+    }
+    TemperatureEnemie.get(i).show();
   }
-   for (int i = 0; i < OxygeneEnemie.size(); i++) {
-    OxygeneEnemie.get(i).barreToucher();
+  for (int i = 0; i < OxygeneEnemie.size(); i++) {
+    //println("X:"+OxygeneEnemie.get(i).posX()+" Y:"+OxygeneEnemie.get(i).posY());
+    OxygeneEnemie.get(i).enemiUpdate();
+    if (OxygeneEnemie.get(i).barreToucher())
+    {
+      //println("z2");
+      //degat barre oxy
+      a = int(random(15, 25));
+      if (int(random(1, 4))==3 && oxyMax>0) {
+        OxygeneEnemie.add(new Oxygene(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
+      }
+    }
+    OxygeneEnemie.get(i).show();
   }
-  for (int i = 0; i < TemperatureEnemie.size(); i++) {
-    TemperatureEnemie.get(i).barreToucher();
-  }
-  //for (int i = 0; i < TemperatureEnemie.size(); i++) {
-  //  if (TemperatureEnemie.get(i).barreToucher())
-  //  {
-  //    //degat barre temp
-  //    int a = int(random(15, 25));
-  //    if (int(random(1, 4))==3) {
-  //      TemperatureEnemie.add(new Temperature(int(random(0, 1000)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
-  //    }
-  //  }
-  //}
-  //for (int i = 0; i < OxygeneEnemie.size(); i++) {
-  //  if (OxygeneEnemie.get(i).barreToucher())
-  //  {
-  //    //degat barre oxy
-  //    int a = int(random(15, 25));
-  //    if (int(random(1, 4))==3) {
-  //      OxygeneEnemie.add(new Oxygene(int(random(0, 1000)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
-  //    }
-  //  }
-  //}
-
-  if (millis() >t1 + 1000 ) {
+  if (millis() >t1 + 10000 && int(random(1, 2))== 2) {
+    a = int(random(15, 25));
     if (int(random(1, 2))== 2)
-    {int a = int(random(15, 25));
+    {
       if (tempMax>0) {
-        TemperatureEnemie.add(new Temperature(int(random(0, width)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
+        TemperatureEnemie.add(new Temperature(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
       } else {
         if (oxyMax>0) {
-          OxygeneEnemie.add(new Oxygene(int(random(0, width)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
+          OxygeneEnemie.add(new Oxygene(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
         }
       }
     }
-    t1 = millis();
   }
 }
 
@@ -180,21 +192,21 @@ void Maxime() {
   text("enemi : "+(oxyMax+tempMax), 10, 100);
 }
 
-void MaximeChrono() {
+//void MaximeChrono() {
 
-  if (millis() >t1 + 10000 && int(random(1, 2))== 2) {
-    if (int(random(1, 2))== 2)
-    {int a = int(random(15, 25));
-      if (tempMax>0) {
-        TemperatureEnemie.add(new Temperature(int(random(0, 1000)), int(random(0, 20)), int(random(1, 3)), 1, a, a, 1, "Images/mechant chaleur.png"));
-      } else {
-        if (oxyMax>0) {
-          OxygeneEnemie.add(new Oxygene(int(random(0, 1000)), int(random(0, 20)), int(random(1, 3)), 1, a, a, 1, "Images/O2 (1).png"));
-        }
-      }
-    }
-  }
-}
+//  if (millis() >t1 + 10000 && int(random(1, 2))== 2) {
+//    if (int(random(1, 2))== 2)
+//    {int a = int(random(15, 25));
+//      if (tempMax>0) {
+//        TemperatureEnemie.add(new Temperature(int(random(0, 1000)), int(random(0, 20)), int(random(1, 3)), 1, a, a, 1, "Images/mechant chaleur.png"));
+//      } else {
+//        if (oxyMax>0) {
+//          OxygeneEnemie.add(new Oxygene(int(random(0, 1000)), int(random(0, 20)), int(random(1, 3)), 1, a, a, 1, "Images/O2 (1).png"));
+//        }
+//      }
+//    }
+//  }
+//}
 
 //******RECUP*********//
 
@@ -221,71 +233,100 @@ int tempMax = 100;
 int oxyMax = 100;
 int level = 1;
 float t1;
+int a;
 int dollars = 0;
 Table table = new Table();
-import processing.sound.*;
 //Lilly
-void test (){
- background(0);
- image(play, 200, 200, 200, 200);
- fill (#FFFFFF);
- textSize (50);
- text ("titre du jeu",300, 100);
- 
- fill (#FFFFFF);
- textSize (26);
- text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
- if (colision(mouseX, mouseY,50, 50, 200, 200, 200, 200)){
-   fight = true;
-   debut = false;
- }
+void lancement() {
+  background(0);
+  image(play, 200, 200, 200, 200);
+  fill (#FFFFFF);
+  textSize (50);
+  text ("SPACE OXYDERS", 300, 100);
+
+  fill (#FFFFFF);
+  textSize (26);
+  text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
+  if (colision(mouseX, mouseY, 50, 50, 200, 200, 200, 200)) {
+    fight = true;
+    debut = false;
+    //sonLancementNiv.play();
+  }
 }
-boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2, int yObjet2, int wObjet2, int hObjet2){
-  if( xObjet1 + wObjet1 > xObjet2 && xObjet2 + wObjet2 > xObjet1){
-     if( yObjet1 + hObjet1 > yObjet2 && yObjet2 + hObjet2 > yObjet1){
-       return true;
-     }
-   }
+boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2, int yObjet2, int wObjet2, int hObjet2) {
+  if ( xObjet1 + wObjet1 > xObjet2 && xObjet2 + wObjet2 > xObjet1) {
+    if ( yObjet1 + hObjet1 > yObjet2 && yObjet2 + hObjet2 > yObjet1) {
+      return true;
+    }
+  }
   return false;
 }
 //Mathias
-
 class Bloc {
-  float blocX, blocY;
+  float blocX, blocY, blocVitesse;
   int blocVie;
   PImage blocImage;
-  Bloc ( float bX, float bY, int bVie ) {
-    blocX = bX;
-    blocY = bY;
-    blocVie = bVie;
+  Bloc ( float bX, float bY, int bVitesse, int bVie ) { blocX = bX; blocY = bY; blocVie = bVie; blocVitesse = bVitesse; }
+  
+  void blocShow() { 
+    image(blocImages[blocVie], blocX, blocY);
   }
-  void blocShow() {
+  
+  void blocSetImage() {
     if(blocVie > 5) { blocVie = 5; }
-    if(blocVie < 0) { blocVie = 0; } 
-    blocImage = loadImage("Images/bloc-"+blocVie+".jpg");
-    blocImage.resize(150,50);
-    image(blocImage, blocX, blocY);
+    if(blocVie < 0) { blocVie = 0; }
+    blocImage = blocImages[blocVie];
   }
   
-  void blocUpdatePosX(float posX) { blocX = posX; }
+  void blocPerdreVie() { 
+    blocVie -= 1; 
+  }
   
-  void blocPerdreVie() { blocVie -= 1; }
+  void blocDeplacementsGauche(float blocId) {
+     if( keyPressed ){
+      if( keyCode == LEFT && blocX > blocId*150 ){
+        blocX -= blocVitesse;
+      }
+    }
+  }
+  
+    void blocDeplacementsDroite(float blocId) {
+    if( keyPressed ) {
+      //println( height - (blocImages[0].width * blocId), width - blocImages[0].width );
+      //delay(100);
+      if(keyCode == RIGHT && !isLastBlocAtScreenRight() ) {
+        blocX += blocVitesse;
+      }
+    }
+  }
+  boolean isLastBlocAtScreenRight () { return ba.blocs.get(ba.barreNombre-1).blocX+150 >= width; }
 }
 
 class Barre {
-  float barreNombre, barreY;
+  int barreNombre;
+  float barreY;
   ArrayList<Bloc> blocs = new ArrayList<Bloc>();
   boolean isInitialised = false;
-  Barre( float bNombre, float bY ) { barreNombre=bNombre; barreY=bY; }
+  
+  Barre( int bNombre, float bY ) { barreNombre=bNombre; barreY=bY; }
   
   void barreInitOrShow() {
-    if(isInitialised == false) { for(int i=0; i<barreNombre; i++) { blocs.add(new Bloc(500+i*500,height/2,4)); } isInitialised = true;
-    } else { if(blocs.size() == 0) { isInitialised = false;
+    if(isInitialised == false) { 
+      for(int i=0; i<barreNombre; i++) {
+        blocs.add(new Bloc( i*150, barreY, 4, 5 ) ); 
+    } 
+        
+        isInitialised = true;
+    } else { 
+      if(blocs.size() == 0) { 
+        isInitialised = false;
       } else {
         for(int i=0; i<barreNombre; i++) {
           Bloc bl = blocs.get(i);
+          bl.blocSetImage();
           bl.blocShow();
-          bl.blocUpdatePosX(  (mouseX + i * ( bl.blocImage.width ) - ( barreNombre*bl.blocImage.width )/2 ) );
+          bl.blocDeplacementsGauche(i);
+          bl.blocDeplacementsDroite(i);
 } } } } }
 
 //Theo
@@ -299,6 +340,7 @@ class Enemie
   float posY() {
     return y;
   }
+  String xph;
   Enemie(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
   {
     x=ex;
@@ -309,34 +351,55 @@ class Enemie
     c2=ec2;
     vie=evie;
     skin=loadImage(photo);
+    xph=photo;
   }
 
   void enemiUpdate() {
     y  += v;
     image(skin, x, y, c1, c2);
+    //print("s:"+xph+";x"+x+";y:"+y+";c1:"+c1+";c2:"+c2);
   }
 
-  //barre touchée.
-  class Temperature extends Enemie
-  {
-    Temperature(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
-    {
-      super( ex, ey, ev, eva, ec1, ec2, evie, photo );
-      tempMax--;
-      type = 1;
+  boolean barreToucher() {
+    boolean InbarreToucher = false;
+    if (y>=(height/2+50)) {
+      InbarreToucher = true ;
     }
-  }
-  class Oxygene extends Enemie
-  {
-
-    Oxygene(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
-    {
-      super( ex, ey, ev, eva, ec1, ec2, evie, photo );
-      oxyMax--;
-      type = 2;
+    if (InbarreToucher == true && ((type==1 && tempMax>0)|| type==2 && oxyMax>0)) {
+      x = int(random(0, 1000));/*en haut*/
+      y = int(random(0, 20));/*en haut*/
+      //posennemi(x, type);
+      if (type==1)
+      {
+        tempMax--;
+      } else
+      {
+        oxyMax--;
+      }
     }
+    image(skin, x, y, c1, c2);
+    return InbarreToucher;
   }
+  void show() {
+    image(skin, x, y, c1, c2);
+  }
+}
+class Temperature extends Enemie
+{
+  Temperature(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
+  {
+    super( ex, ey, ev, eva, ec1, ec2, evie, photo );
+    tempMax--;
+    type = 1;
+  }
+}
+class Oxygene extends Enemie
+{
 
-  void stop() {
+  Oxygene(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
+  {
+    super( ex, ey, ev, eva, ec1, ec2, evie, photo );
+    oxyMax--;
+    type = 2;
   }
 }
