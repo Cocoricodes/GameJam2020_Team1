@@ -35,7 +35,7 @@ void test (){
  fill (#FFFFFF);
  textSize (26);
  text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
- if (colision(mouseX, mouseY,50, 50, 400, 300, 300, 300)){
+ if (colision(mouseX, mouseY,50, 50, 200, 200, 200, 200)){
    image(level,0,0,800,600);
    // lancement du niveau 1
  }
@@ -72,18 +72,19 @@ void ecranFinDeNiveau (){
  //   table[i].getInt("level");
  //  table[i].getInt("etoile");
  // }
- background();
+ background(100);
  image(etoile3, 300, -50, 300, 300);
  image(Win, 200, 10, 400, 400);
  image(play,700, 500, 100, 100);
+ if (colision(mouseX,mouseY,50,50,700,500,100,100)){
+   image(level,0,0,800,600);
+ }
+    //passe au level suivant
  textSize(100);
  text(dollars,450,400);
  image(recharge,50,280,200, 100);
  image(bouton,270,480,100,100);
  image(argent,350,325,100,100);
- if (colision(mouseX,mouseY,50,50,270,480,100,100)){
-   dollars-=12;
- }
 }
 boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2, int yObjet2, int wObjet2, int hObjet2){
   if( xObjet1 + wObjet1 > xObjet2 && xObjet2 + wObjet2 > xObjet1){
@@ -91,6 +92,12 @@ boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2
        return true;
      }  
   }
+   return false;
 }
-
+void mouseClicked(){
+   if (colision(mouseX,mouseY,50,50,270,480,100,100)&&(dollars>12)){
+   dollars -=12;
+   }   
+}
+//pour ajouter une couche de chrome
   
