@@ -81,9 +81,16 @@ void ecranFinDeNiveau (){
  image(recharge,50,280,200, 100);
  image(bouton,270,480,100,100);
  image(argent,350,325,100,100);
+ if (colision(mouseX,mouseY,50,50,270,480,100,100)){
+   dollars-=12;
  }
-
-  
-  
+}
+boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2, int yObjet2, int wObjet2, int hObjet2){
+  if( xObjet1 + wObjet1 > xObjet2 && xObjet2 + wObjet2 > xObjet1){
+     if( yObjet1 + hObjet1 > yObjet2 && yObjet2 + hObjet2 > yObjet1){
+       return true;
+     }  
+  }
+}
 
   
