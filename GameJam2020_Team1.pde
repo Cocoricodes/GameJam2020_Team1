@@ -14,18 +14,20 @@ PImage img60;
 PImage img40;
 PImage img20;
 PImage img0;
-
+boolean sonOk = true;
 
 PImage[] blocImages = new PImage[6];
 PImage aluminium;
-
+int nbsEn = 5;
 
 
 PImage barredestroy;
 void setup() {
   //Arthaud
-  //son();
-  //musicDeFond.loop();
+  if (sonOk) {
+    thread("son");
+    
+  }
   //Lilly-Rose
   size (800, 600);
   play = loadImage("Images/boutonplay.PNG");
@@ -34,15 +36,15 @@ void setup() {
   // etoile2 =loadImage("2 étoile.png");
   etoile3 = loadImage("Images/3 étoile.png");
   Win = loadImage("Images/Win game.png");
-  //recharge=loadImage("Images/coucheneuve.jpg");
-  //bouton =loadImage("Images/bouton+.png");
+  recharge=loadImage("Images/bloc-5.png");
+  bouton =loadImage("Images/bouton+.png");
   logo=loadImage("Images/LOGO game.png");
   argent=loadImage("Images/dollar.png");
   //Mathias
-  ba = new Barre(4 , height/2+100);
-  for(int i=1; i<6; i++ ){
+  ba = new Barre(4, height/2+100);
+  for (int i=1; i<6; i++ ) {
     blocImages[i] = loadImage("Images/bloc-"+i+".png");
-    blocImages[i].resize(150,50);
+    blocImages[i].resize(150, 50);
   }
   aluminium = loadImage("Images/allu.jpg");
 
@@ -69,8 +71,8 @@ void setup() {
   {
     TableRow newRow = table.addRow();
     newRow.setInt("level", i+1);
-    newRow.setInt("oxygene", 50*(i+1)+int(random(-50*(i+1)/4, 50*(i+1)/4)));
-    newRow.setInt("temperature", 50*(i+1)+int(random(-50*(i+1)/4, 50*(i+1)/4)));
+    newRow.setInt("oxygene", nbsEn*(i+1)+int(random(-nbsEn*(i+1)/4, nbsEn*(i+1)/4)));
+    newRow.setInt("temperature", nbsEn*(i+1)+int(random(-nbsEn*(i+1)/4, nbsEn*(i+1)/4)));
     newRow.setInt("etoile", 0);
   }
   tempMax=table.getRow(level-1).getInt("temperature");
@@ -88,8 +90,10 @@ void draw() {
     Maxime();
     //Antonin();
     Theo();
+    next();
   }
   if (finNivOk) {
+    ecranFinDeNiveau();
   }
 }
 
@@ -149,7 +153,7 @@ void Theo() {
       //println("z");
       //degat barre temp
       a = int(random(15, 25));
-      if (int(random(1, 4))==3 && tempMax>0) {
+      if (int(random(1, 6))==3 && tempMax>0) {
         TemperatureEnemie.add(new Temperature(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/mechant chaleur.png"));
       }
     }
@@ -163,13 +167,13 @@ void Theo() {
       //println("z2");
       //degat barre oxy
       a = int(random(15, 25));
-      if (int(random(1, 4))==3 && oxyMax>0) {
+      if (int(random(1, 6))==3 && oxyMax>0) {
         OxygeneEnemie.add(new Oxygene(int(random(0, 800)), int(random(0, 20)), int((random(1, 3)*20+5*level)/20), 1, a, a, 1, "Images/O2 (1).png"));
       }
     }
     OxygeneEnemie.get(i).show();
   }
-  if (millis() >t1 + 10000 && int(random(1, 2))== 2) {
+  if (millis() >t1 + 10000 && int(random(1, 4))== 2) {
     a = int(random(15, 25));
     if (int(random(1, 2))== 2)
     {
@@ -247,10 +251,12 @@ void lancement() {
   fill (#FFFFFF);
   textSize (26);
   text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
-  if (colision(mouseX, mouseY, 50, 50, 200, 200, 200, 200)) {
+  if (colision(mouseX, mouseY, 50, 50, 200, 200, 200, 200) && mousePressed) {
     fight = true;
     debut = false;
-    //sonLancementNiv.play();
+    if (sonOk) {
+      sonLancementNiv.play();
+    }
   }
 }
 boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2, int yObjet2, int wObjet2, int hObjet2) {
@@ -266,40 +272,51 @@ class Bloc {
   float blocX, blocY, blocVitesse;
   int blocVie;
   PImage blocImage;
-  Bloc ( float bX, float bY, int bVitesse, int bVie ) { blocX = bX; blocY = bY; blocVie = bVie; blocVitesse = bVitesse; }
-  
+  Bloc ( float bX, float bY, int bVitesse, int bVie ) { 
+    blocX = bX; 
+    blocY = bY; 
+    blocVie = bVie; 
+    blocVitesse = bVitesse;
+  }
+
   void blocShow() { 
     image(blocImages[blocVie], blocX, blocY);
   }
-  
+
   void blocSetImage() {
-    if(blocVie > 5) { blocVie = 5; }
-    if(blocVie < 0) { blocVie = 0; }
+    if (blocVie > 5) { 
+      blocVie = 5;
+    }
+    if (blocVie < 0) { 
+      blocVie = 0;
+    }
     blocImage = blocImages[blocVie];
   }
-  
+
   void blocPerdreVie() { 
-    blocVie -= 1; 
+    blocVie -= 1;
   }
-  
+
   void blocDeplacementsGauche(float blocId) {
-     if( keyPressed ){
-      if( keyCode == LEFT && blocX > blocId*150 ){
+    if ( keyPressed ) {
+      if ( keyCode == LEFT && blocX > blocId*150 ) {
         blocX -= blocVitesse;
       }
     }
   }
-  
-    void blocDeplacementsDroite(float blocId) {
-    if( keyPressed ) {
+
+  void blocDeplacementsDroite(float blocId) {
+    if ( keyPressed ) {
       //println( height - (blocImages[0].width * blocId), width - blocImages[0].width );
       //delay(100);
-      if(keyCode == RIGHT && !isLastBlocAtScreenRight() ) {
+      if (keyCode == RIGHT && !isLastBlocAtScreenRight() ) {
         blocX += blocVitesse;
       }
     }
   }
-  boolean isLastBlocAtScreenRight () { return ba.blocs.get(ba.barreNombre-1).blocX+150 >= width; }
+  boolean isLastBlocAtScreenRight () { 
+    return ba.blocs.get(ba.barreNombre-1).blocX+150 >= width;
+  }
 }
 
 class Barre {
@@ -307,27 +324,34 @@ class Barre {
   float barreY;
   ArrayList<Bloc> blocs = new ArrayList<Bloc>();
   boolean isInitialised = false;
-  
-  Barre( int bNombre, float bY ) { barreNombre=bNombre; barreY=bY; }
-  
+
+  Barre( int bNombre, float bY ) { 
+    barreNombre=bNombre; 
+    barreY=bY;
+  }
+
   void barreInitOrShow() {
-    if(isInitialised == false) { 
-      for(int i=0; i<barreNombre; i++) {
-        blocs.add(new Bloc( i*150, barreY, 4, 5 ) ); 
-    } 
-        
-        isInitialised = true;
+    if (isInitialised == false) { 
+      for (int i=0; i<barreNombre; i++) {
+        blocs.add(new Bloc( i*150, barreY, 4, 5 ) );
+      } 
+
+      isInitialised = true;
     } else { 
-      if(blocs.size() == 0) { 
+      if (blocs.size() == 0) { 
         isInitialised = false;
       } else {
-        for(int i=0; i<barreNombre; i++) {
+        for (int i=0; i<barreNombre; i++) {
           Bloc bl = blocs.get(i);
           bl.blocSetImage();
           bl.blocShow();
           bl.blocDeplacementsGauche(i);
           bl.blocDeplacementsDroite(i);
-} } } } }
+        }
+      }
+    }
+  }
+}
 
 //Theo
 class Enemie
@@ -401,5 +425,41 @@ class Oxygene extends Enemie
     super( ex, ey, ev, eva, ec1, ec2, evie, photo );
     oxyMax--;
     type = 2;
+  }
+}
+void ecranFinDeNiveau () {
+  //for (int i= 0; i<10; i++)
+  // {
+  //   table[i].getInt("level");
+  //  table[i].getInt("etoile");
+  // }
+  background(100);
+  image(etoile3, 300, -50, 300, 300);
+  image(Win, 200, 10, 400, 400);
+  image(play, 700, 500, 100, 100);
+  textSize(100);
+  text(dollars, 450, 380);
+  image(recharge, 50, 480, 200, 100);
+  image(bouton, 270, 480, 100, 100);
+  image(argent, 350, 325, 100, 100);
+  if (colision(mouseX, mouseY, 50, 50, 700, 500, 100, 100)) {
+    image(levelimg, 0, 0, 800, 600);
+  }
+}
+void mousePressed() {
+  if (colision(mouseX, mouseY, 50, 50, 270, 480, 100, 100)&&(dollars>12)) {
+    dollars -=12;
+    
+  }
+}
+void next() {
+  if (vie <1) {
+    background (0);
+    textSize(100);
+    text("GAME OVER", 400, 300);
+  } else {
+    if ( (tempMax + oxyMax)  <1 && vie >0) {
+      finNivOk = true;
+    }
   }
 }
