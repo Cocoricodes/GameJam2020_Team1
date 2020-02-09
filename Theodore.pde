@@ -35,7 +35,8 @@ void setup()
 
 void draw() 
 {
-  if(tempMax<=0){}
+  if(tempMax<=0){ TemperatureEnemie = new ArrayList<Temperature>(); }
+  if(oxyMax<=0){ OxygeneEnemie = new ArrayList<Oxygene>(); }
   background(25);
   text("T:"+TemperatureEnemie.size()+" total:"+tempMax+" O:"+ OxygeneEnemie.size()+" total:"+oxyMax + " a:"+a, 400, 300);
   for (int i = 0; i < TemperatureEnemie.size(); i++) {
@@ -149,8 +150,5 @@ class Oxygene extends Enemie
     type = 2;
   }
 }
-void posennemi(float x, float type)
-{
-  println(x+"  "+type);
-}
+
 void stop() {}
