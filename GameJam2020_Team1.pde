@@ -178,3 +178,147 @@ void MaximeChrono() {
   }
 }
 
+//******RECUP*********//
+
+
+//Lilly
+PImage play;
+PImage levelimg;
+//PImage etoile1;
+//PImage etoile2;
+PImage etoile3;
+PImage Win;
+PImage recharge;
+PImage bouton;
+PImage argent;
+PImage logo;
+//Mathias
+Barre ba;
+//Maxime
+int tempsDeJeu=millis();
+//Theo
+ArrayList<Temperature> TemperatureEnemie = new ArrayList<Temperature>();
+ArrayList<Oxygene> OxygeneEnemie = new ArrayList<Oxygene>();
+int tempMax = 100;
+int oxyMax = 100;
+int level = 1;
+float t1;
+int dollars = 0;
+Table table = new Table();
+import processing.sound.*;
+//Lilly
+void test (){
+ background(0);
+ image(play, 200, 200, 200, 200);
+ fill (#FFFFFF);
+ textSize (50);
+ text ("titre du jeu",300, 100);
+ 
+ fill (#FFFFFF);
+ textSize (26);
+ text("règles du jeu:\n\nRépartir la chaleur sur le paddle pour éviter que sa couche\nde chrome cède sous l'effet de l'occidation\ndue à l'oxygène ambiant.", 0, 430);
+ if (colision(mouseX, mouseY,50, 50, 200, 200, 200, 200)){
+   fight = true;
+   debut = false;
+ }
+}
+boolean colision(int xObjet1, int yObjet1, int wObjet1, int hObjet1, int xObjet2, int yObjet2, int wObjet2, int hObjet2){
+  if( xObjet1 + wObjet1 > xObjet2 && xObjet2 + wObjet2 > xObjet1){
+     if( yObjet1 + hObjet1 > yObjet2 && yObjet2 + hObjet2 > yObjet1){
+       return true;
+     }
+   }
+  return false;
+}
+//Mathias
+
+class Bloc {
+  float blocX, blocY;
+  int blocVie;
+  PImage blocImage;
+  Bloc ( float bX, float bY, int bVie ) {
+    blocX = bX;
+    blocY = bY;
+    blocVie = bVie;
+  }
+  void blocShow() {
+    if(blocVie > 5) { blocVie = 5; }
+    if(blocVie < 0) { blocVie = 0; } 
+    blocImage = loadImage("Images/bloc-"+blocVie+".jpg");
+    blocImage.resize(150,50);
+    image(blocImage, blocX, blocY);
+  }
+  
+  void blocUpdatePosX(float posX) { blocX = posX; }
+  
+  void blocPerdreVie() { blocVie -= 1; }
+}
+
+class Barre {
+  float barreNombre, barreY;
+  ArrayList<Bloc> blocs = new ArrayList<Bloc>();
+  boolean isInitialised = false;
+  Barre( float bNombre, float bY ) { barreNombre=bNombre; barreY=bY; }
+  
+  void barreInitOrShow() {
+    if(isInitialised == false) { for(int i=0; i<barreNombre; i++) { blocs.add(new Bloc(500+i*500,height/2,4)); } isInitialised = true;
+    } else { if(blocs.size() == 0) { isInitialised = false;
+      } else {
+        for(int i=0; i<barreNombre; i++) {
+          Bloc bl = blocs.get(i);
+          bl.blocShow();
+          bl.blocUpdatePosX(  (mouseX + i * ( bl.blocImage.width ) - ( barreNombre*bl.blocImage.width )/2 ) );
+} } } } }
+
+//Theo
+class Enemie
+{
+  float x, y, v, va, c1, c2, vie, type;
+  PImage skin; 
+  float posX() {
+    return x;
+  }
+  float posY() {
+    return y;
+  }
+  Enemie(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
+  {
+    x=ex;
+    y=ey;
+    v=ev;
+    va=eva;
+    c1=ec1;
+    c2=ec2;
+    vie=evie;
+    skin=loadImage(photo);
+  }
+
+  void enemiUpdate() {
+    y  += v;
+    image(skin, x, y, c1, c2);
+  }
+
+  //barre touchée.
+  class Temperature extends Enemie
+  {
+    Temperature(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
+    {
+      super( ex, ey, ev, eva, ec1, ec2, evie, photo );
+      tempMax--;
+      type = 1;
+    }
+  }
+  class Oxygene extends Enemie
+  {
+
+    Oxygene(float ex, float ey, float ev, float eva, float ec1, float ec2, float evie, String photo)
+    {
+      super( ex, ey, ev, eva, ec1, ec2, evie, photo );
+      oxyMax--;
+      type = 2;
+    }
+  }
+
+  void stop() {
+  }
+}
